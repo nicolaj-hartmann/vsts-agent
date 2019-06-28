@@ -173,6 +173,10 @@ RUN apt-get clean \
 
 WORKDIR /azp
 
+COPY ./install-agent.sh .
+RUN chmod +x install-agent.sh \
+ && /bin/bash ./install-agent.sh
+
 COPY ./start.sh .
 RUN chmod +x start.sh
 
