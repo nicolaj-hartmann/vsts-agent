@@ -17,8 +17,6 @@ if [ -n "$AZP_WORK" ]; then
   mkdir -p "$AZP_WORK"
 fi
 
-rm -rf /azp/agent
-mkdir /azp/agent
 cd /azp/agent
 
 export AGENT_ALLOW_RUNASROOT="1"
