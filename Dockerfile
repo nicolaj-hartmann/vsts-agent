@@ -5,6 +5,7 @@ FROM ubuntu:16.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
+
 RUN apt-get update \
 && apt-get install -y --no-install-recommends \
         ca-certificates \
@@ -31,11 +32,19 @@ RUN apt-get update \
         unzip \
         wget \
         zip \
+        less \
         tzdata \
         apt-transport-https \
         build-essential \
         gnupg-agent \
         software-properties-common
+
+
+# Install Docker
+RUN add-apt-repository ppa:git-core/ppa -y \
+&& apt-get update \
+&& apt-get install git git-man && \
+git version
 
 # Setup the locale
 ENV LANG en_US.UTF-8
@@ -187,7 +196,6 @@ ENV PATH $PATH:/usr/share/openshift
 ENV oc=/usr/share/openshift/oc
 ENV OC_VERSION='3.11.0'
 
-
 # Clean system
 RUN apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
@@ -201,5 +209,6 @@ RUN chmod +x install-agent.sh \
 
 COPY ./start.sh .
 RUN chmod +x start.sh
+
 
 CMD ["./start.sh"]
