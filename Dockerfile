@@ -33,7 +33,9 @@ RUN apt-get update \
         zip \
         tzdata \
         apt-transport-https \
-        build-essential
+        build-essential \
+        gnupg-agent \
+        software-properties-common
 
 # Setup the locale
 ENV LANG en_US.UTF-8
@@ -158,6 +160,15 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && apt-get install -y --no-install-recommends yarn \
  && rm -rf /var/lib/apt/lists/* \
 && rm -rf /etc/apt/sources.list.d/*
+
+# Install Docker
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
+ && add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable" \
+&& apt-get update \
+&& apt-get install docker-ce docker-ce-cli containerd.io
 
 # Install Terraform TODO:UPDATE to v 12
 #RUN TERRAFORM_VERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r .current_version) \
