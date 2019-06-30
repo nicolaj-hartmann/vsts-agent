@@ -134,7 +134,7 @@ RUN wget -q -P /tmp https://bitbucket.org/pypy/pypy/downloads/pypy2-v6.0.0-linux
  && mv /opt/pypy2-v6.0.0-linux64 /opt/pypy2 \
  && ln -s /opt/pypy2/bin/pypy /usr/local/bin/pypy
 
-# Install PyPy3
+# Install PyPy3VSO_AGENT_IGNORE
 RUN wget -q -P /tmp https://bitbucket.org/pypy/pypy/downloads/pypy3-v6.0.0-linux64.tar.bz2 \
  && tar -x -C /opt -f /tmp/pypy3-v6.0.0-linux64.tar.bz2 \
  && rm /tmp/pypy3-v6.0.0-linux64.tar.bz2 \
@@ -165,6 +165,13 @@ RUN TERRAFORM_VERSION='0.11.14' \
  && curl -LO https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
  && unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin \
  && rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+# Install OC
+RUN curl -LO https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz \
+ && tar xzf openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz \
+ && mv ./openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit /usr/share/openshift \
+ && rm -f openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
+ENV PATH $PATH:/usr/share/openshift
 
 # Clean system
 RUN apt-get clean \
