@@ -120,14 +120,13 @@ RUN apt-get update \
  && ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
 
 # Install Go
-RUN GO_VERSION='go1.12.6' \
- && curl -sL https://dl.google.com/go/${GO_VERSION}.linux-amd64.tar.gz -o ${GO_VERSION}.linux-amd64.tar.gz \
- && mkdir -p /usr/local/${GO_VERSION} \
- && tar -C /usr/local/${GO_VERSION} -xzf ${GO_VERSION}.linux-amd64.tar.gz --strip-components=1 go \
- && rm ${GO_VERSION}.linux-amd64.tar.gz
-ENV GOROOT_1_12_X64=/usr/local/${GO_VERSION} \
-    GOROOT=/usr/local/go1.12
-ENV PATH $PATH:$GOROOT/bin
+RUN wget -q https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz \
+ && tar -C /usr/local/ -xvf go1.12.6.linux-amd64.tar.gz \
+ && rm -rf go1.12.6.linux-amd64.tar.gz
+ENV GOROOT=/usr/local/go
+ENV PATH=$GOROOT/bin:$PATH
+ENV GO_VERSION=1.12.6
+
 
 # Instally PyPy2
 RUN wget -q -P /tmp https://bitbucket.org/pypy/pypy/downloads/pypy2-v6.0.0-linux64.tar.bz2 \
@@ -176,6 +175,8 @@ RUN TERRAFORM_VERSION='0.11.14' \
  && curl -LO https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
  && unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin \
  && rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+ENV terraform=/usr/local/bin/terraform
+ENV TERRAFORM_VERSION='0.11.14'
 
 # Install OC
 RUN curl -LO https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz \
@@ -183,6 +184,9 @@ RUN curl -LO https://github.com/openshift/origin/releases/download/v3.11.0/opens
  && mv ./openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit /usr/share/openshift \
  && rm -f openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
 ENV PATH $PATH:/usr/share/openshift
+ENV oc=/usr/share/openshift/oc
+ENV OC_VERSION='3.11.0'
+
 
 # Clean system
 RUN apt-get clean \
