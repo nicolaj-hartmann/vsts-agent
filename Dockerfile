@@ -178,14 +178,14 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
 && apt-get update \
 && apt-get install docker-ce docker-ce-cli containerd.io
 
-# Install Terraform TODO:UPDATE to v 12
+# Install Terraform
 #RUN TERRAFORM_VERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r .current_version) \
-RUN TERRAFORM_VERSION='0.11.14' \
+RUN TERRAFORM_VERSION='0.12.12' \
  && curl -LO https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
  && unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin \
  && rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 ENV terraform=/usr/local/bin/terraform
-ENV TERRAFORM_VERSION='0.11.14'
+ENV TERRAFORM_VERSION='0.12.12'
 
 # Install OC
 RUN curl -LO https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz \
