@@ -99,7 +99,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
 RUN apt-get install -y --no-install-recommends powershell
 
 # Install .NET Core SDK and initialize package cache
-RUN apt-get install -y --no-install-recommends dotnet-sdk-2.2
+RUN apt-get install -y --no-install-recommends dotnet-sdk-3.1
 RUN dotnet help
 ENV dotnet=/usr/bin/dotnet
 
