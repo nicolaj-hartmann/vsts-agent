@@ -118,6 +118,9 @@ RUN curl -sL https://git.io/n-install | bash -s -- -ny - \
 ENV bower=/usr/local/bin/bower \
     grunt=/usr/local/bin/grunt
 
+RUN npm install -g apiconnect 
+
+
 # Install PhantomJS
 RUN apt-get update \
  && apt-get install -y chrpath libssl-dev libxft-dev libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev \
