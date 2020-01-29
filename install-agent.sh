@@ -26,6 +26,6 @@ export VSO_AGENT_IGNORE=AZP_TOKEN,AZP_TOKEN_FILE
 print_header "1. Downloading and installing Azure Pipelines agent..."
 
 
-AZP_AGENTPACKAGE_URL='https://vstsagentpackage.azureedge.net/agent/2.153.2/vsts-agent-linux-x64-2.153.2.tar.gz'
+AZP_AGENTPACKAGE_URL='https://vstsagentpackage.azureedge.net/agent/2.164.6/vsts-agent-linux-x64-2.164.6.tar.gz'
 
 curl -LsS $AZP_AGENTPACKAGE_URL | tar -xz & wait $!
